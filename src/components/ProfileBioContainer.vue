@@ -1,14 +1,30 @@
 <template>
   <v-layout fill-height>
     <v-card class="ma-auto">
-      <v-card-title>Name</v-card-title>
-      <v-card-text>Stuff</v-card-text>
+      <v-img :src="user.avatar_url"></v-img>
+      <v-card-title>{{ user.name }}</v-card-title>
+      <v-card-text>
+        <span>Username: {{ user.login }}</span><br>
+        <span>{{ user.html_url }}</span><br>
+        <span>Public Repos: {{ user.public_repos }}</span><br>
+        <span>Created at {{ user.created_at | formatDate }}</span>
+      </v-card-text>
     </v-card>
   </v-layout>
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
-  name: 'ProfileBioContainer'
+  name: 'ProfileBioContainer',
+  props: {
+    user: Object
+  },
+  filters: {
+    formatDate (date) {
+      return moment(date).format("LLL")
+    }
+  }
 }
 </script>
