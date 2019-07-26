@@ -2,35 +2,15 @@
   <v-app>
     <v-navigation-drawer
       v-model="drawer"
+      mobile-break-point=960
       app
     >
       <NavDrawer />
     </v-navigation-drawer>
-    <v-app-bar app>
-      <v-app-bar-nav-icon
-        class="hidden-md-and-up"
-        @click.stop="drawer = !drawer"
-      ></v-app-bar-nav-icon>
-      <v-toolbar-title class="headline text-uppercase hidden-xs-only">
-        <v-flex class="d-flex align-center">
-          <v-img
-            class="hidden-sm-and-down"
-            :src="require('./assets/github.svg')"
-            height="64px"
-          />
-          <span>GitHub&nbsp;</span>
-          <span class="font-weight-light">PERSONAS</span>
-        </v-flex>
-      </v-toolbar-title>
-      <v-spacer class="hidden-xs-only"></v-spacer>
-      <v-text-field
-        v-model="searchField"
-        @change="searchUser"
-        prepend-icon="mdi-account-search"
-        hide-details
-      >
-      </v-text-field>
-    </v-app-bar>
+    <AppBar
+      @click:drawer="drawer = !drawer"
+      @change:user="searchUser"
+    />
     <v-content>
       <ProfileBioContainer
         v-if="user"
@@ -44,6 +24,7 @@
 import axios from 'axios';
 
 import NavDrawer from './components/NavDrawer';
+import AppBar from './components/AppBar';
 import ProfileBioContainer from './components/ProfileBioContainer';
 
 export default {
@@ -96,6 +77,7 @@ export default {
   }, 
   components: {
     NavDrawer,
+    AppBar,
     ProfileBioContainer,
   },
   created () {
