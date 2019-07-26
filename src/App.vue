@@ -1,11 +1,28 @@
 <template>
   <v-app>
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+      <NavDrawer />
+    </v-navigation-drawer>
     <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>GitHub&nbsp;</span>
-        <span class="font-weight-light">PERSONAS</span>
+      <v-app-bar-nav-icon
+        class="hidden-md-and-up"
+        @click.stop="drawer = !drawer"
+      ></v-app-bar-nav-icon>
+      <v-toolbar-title class="headline text-uppercase hidden-xs-only">
+        <v-flex class="d-flex align-center">
+          <v-img
+            class="hidden-sm-and-down"
+            :src="require('./assets/github.svg')"
+            height="64px"
+          />
+          <span>GitHub&nbsp;</span>
+          <span class="font-weight-light">PERSONAS</span>
+        </v-flex>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-spacer class="hidden-xs-only"></v-spacer>
       <v-text-field
         v-model="searchField"
         @change="searchUser"
@@ -26,6 +43,7 @@
 <script>
 import axios from 'axios';
 
+import NavDrawer from './components/NavDrawer';
 import ProfileBioContainer from './components/ProfileBioContainer';
 
 export default {
@@ -70,12 +88,14 @@ export default {
   },
   data () {
     return {
+      drawer: null,
       searchField: "",
       prevSearchVal: "",
       user: null
     }
   }, 
   components: {
+    NavDrawer,
     ProfileBioContainer,
   },
   created () {
