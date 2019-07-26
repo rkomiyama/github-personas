@@ -12,28 +12,63 @@
       </v-flex>
     </v-toolbar-title>
     <v-list dense>
-      <v-list-item>
-        <v-list-item-action>
-          <v-icon>mdi-view-dashboard</v-icon>
-        </v-list-item-action>
-        <v-list-item-content>
-          <v-list-item-title>Dashboard</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
+      <v-list-group
+        prepend-icon="mdi-magnify"
+        value="true"
+      >
+        <template v-slot:activator>
+          <v-list-item-content>
+            <v-list-item-title>
+              Search by...
+            </v-list-item-title>
+          </v-list-item-content>
+        </template>
+        <v-list-item-group v-model="searchOption">
+          <v-list-item
+            class="pl-10"
+            link
+            @click="$emit('change:searchUser', 'username')"
+          >
+            <v-list-item-action>
+              <v-icon>mdi-account-search</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Username</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item
+            class="pl-10"
+            link
+            @click="$emit('change:searchUser', 'fullname')"
+          >
+            <v-list-item-action>
+              <v-icon>mdi-face</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>Full name</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list-group>
+      <!-- <v-list-item>
         <v-list-item-action>
           <v-icon>mdi-settings</v-icon>
         </v-list-item-action>
         <v-list-item-content>
           <v-list-item-title>Settings</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
     </v-list>
   </v-layout>
 </template>
 
 <script>
 export default {
-  name: "NavDrawer"
+  name: "NavDrawer",
+  data () {
+    return {
+      searchOption: 0
+    }
+  }
 }
 </script>

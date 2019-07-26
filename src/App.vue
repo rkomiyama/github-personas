@@ -5,18 +5,18 @@
       mobile-break-point=960
       app
     >
-      <NavDrawer />
+      <NavDrawer @change:searchUser="searchUserBy" />
     </v-navigation-drawer>
     <AppBar
       @click:drawer="drawer = !drawer"
       @change:user="searchUser"
+      :searchUserOption="searchUserOption"
+      ref="appBar"
     />
-    <v-content>
-      <ProfileBioContainer
-        v-if="user"
-        :user="user"
-      />
-    </v-content>
+    <ProfileBioContainer
+      v-if="user"
+      :user="user"
+    />
   </v-app>
 </template>
 
@@ -30,18 +30,36 @@ import ProfileBioContainer from './components/ProfileBioContainer';
 export default {
   name: 'App',
   methods: {
+    searchUserBy (searchOption) {
+      this.searchUserOption = searchOption
+    },
     async searchUser (searchVal) {
       if (this.prevSearchVal === searchVal) {
         return
       }
       this.prevSearchVal = searchVal
-      const userUrl = await this.searchUsername(searchVal)
+      let userUrl
+      if (this.searchUserOption === "username") {
+        userUrl = await this.searchUsername(searchVal)
+      } else if (this.searchUserOption === "fullname") {
+        userUrl = await this.searchFullName(searchVal)
+      }
       if (userUrl !== undefined) {
         this.user = await this.searchUserProfile(userUrl)
       }
     },
     async searchUsername (username) {
       return await axios.get(`https://api.github.com/search/users?q=user:${username}`)
+        .then(response => {
+          return response.data.items[0].url
+        })
+        .catch(e => {
+          console.error(e)
+        })
+    },
+    async searchFullName (fullname) {
+      const name = fullname.replace(/ /g, "+")
+      return await axios.get(`https://api.github.com/search/users?q=fullname:${name}`)
         .then(response => {
           return response.data.items[0].url
         })
@@ -70,11 +88,19 @@ export default {
   data () {
     return {
       drawer: null,
+      searchUserOption: "username",
       searchField: "",
       prevSearchVal: "",
       user: null
     }
-  }, 
+  },
+  watch: {
+    searchUserOption (newOption, oldOption) {
+      if (newOption !== oldOption) {
+        this.$refs.appBar.turnUserChangeOn()
+      }
+    }
+  },
   components: {
     NavDrawer,
     AppBar,
