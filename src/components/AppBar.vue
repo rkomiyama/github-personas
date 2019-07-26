@@ -11,7 +11,7 @@
       <v-flex class="d-flex align-center">
         <v-img
           class="hidden-sm-and-down"
-          :src="require('../assets/github.svg')"
+          :src="require('@/assets/github.svg')"
           height=64
         />
         <span>GitHub&nbsp;</span>
@@ -50,6 +50,9 @@ export default {
     },
     turnUserChangeOn () {
       this.userChange = true
+    },
+    clearSearchField () {
+      this.searchField = ""
     }
   },
   data () {
