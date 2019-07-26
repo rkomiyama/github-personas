@@ -1,5 +1,8 @@
 <template>
-  <v-app-bar app>
+  <v-app-bar
+    height=64
+    app
+  >
     <v-app-bar-nav-icon
       class="hidden-md-and-up"
       @click.stop="$emit('click:drawer')"
@@ -9,7 +12,7 @@
         <v-img
           class="hidden-sm-and-down"
           :src="require('../assets/github.svg')"
-          height="64px"
+          height=64
         />
         <span>GitHub&nbsp;</span>
         <span class="font-weight-light">PERSONAS</span>
@@ -18,7 +21,9 @@
     <v-spacer class="hidden-xs-only"></v-spacer>
     <v-text-field
       v-model="searchField"
-      @change="$emit('change:user', searchField)"
+      :label="searchFieldLabels[searchUserOption]"
+      @blur="checkFieldChange"
+      @change="changeUser"
       prepend-icon="mdi-account-search"
       hide-details
     >
@@ -29,10 +34,37 @@
 <script>
 export default {
   name: 'AppBar',
-  data() {
-    return {
-      searchField: ""
+  methods: {
+    checkFieldChange () {
+      if (this.oldSearchField === this.searchField) {
+        this.userChange = false
+      }
+    },
+    changeUser () {
+      if (this.userChange) {
+        this.$emit('change:user', this.searchField)
+        this.oldSearchField = this.searchField
+      } else {
+        this.turnUserChangeOn()
+      }
+    },
+    turnUserChangeOn () {
+      this.userChange = true
     }
+  },
+  data () {
+    return {
+      oldSearchField: null,
+      searchField: "",
+      userChange: true,
+      searchFieldLabels: {
+        username: 'Search by Username',
+        fullname: 'Search by Full Name'
+      }
+    }
+  },
+  props: {
+    searchUserOption: String
   }
 }
 </script>
