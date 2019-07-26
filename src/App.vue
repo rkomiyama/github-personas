@@ -2,7 +2,6 @@
   <v-app>
     <NavDrawer
       v-model="drawer"
-      @change:searchUser="searchUserBy"
       @input:drawer="drawer = $event"
     />
     <AppBar
@@ -67,13 +66,16 @@ export default {
       }
     }
   },
+  created () {
+    this.$root.$on('change:searchUser', this.searchUserBy)
+  },
+  beforeDestroy () {
+    this.$root.$off('change:searchUser')
+  },
   components: {
     NavDrawer,
     AppBar,
     ProfileBioContainer,
-  },
-  created () {
-    this.$vuetify.theme.dark = true
-  },
+  }
 };
 </script>

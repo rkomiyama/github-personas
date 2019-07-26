@@ -14,7 +14,7 @@
 
 <script>
 import NavDrawerTitle from './NavDrawerTitle'
-import NavDrawerItems from './NavDrawerItems'
+import NavDrawerItems from './Items/NavDrawerItems'
 
 export default {
   name: "NavDrawer",

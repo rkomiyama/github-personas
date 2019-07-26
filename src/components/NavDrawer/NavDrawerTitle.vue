@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar-title class="headline text-uppercase py-2">
+  <v-toolbar-title class="headline text-uppercase py-2 hidden-sm-and-up">
     <v-flex class="d-flex align-center">
       <v-img
         :src="require('@/assets/github.svg')"
