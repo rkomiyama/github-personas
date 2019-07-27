@@ -22,9 +22,10 @@
     <v-text-field
       v-model="searchField"
       :label="searchFieldLabels[searchUserOption]"
-      @blur="checkFieldChange"
+      @blur="userChange = false"
       @change="changeUser"
       prepend-icon="mdi-account-search"
+      :maxlength="maxLength[searchUserOption]"
       hide-details
     >
     </v-text-field>
@@ -35,11 +36,6 @@
 export default {
   name: 'AppBar',
   methods: {
-    checkFieldChange () {
-      if (this.oldSearchField === this.searchField) {
-        this.userChange = false
-      }
-    },
     changeUser () {
       if (this.userChange) {
         this.$emit('change:user', this.searchField)
@@ -63,6 +59,19 @@ export default {
       searchFieldLabels: {
         username: 'Search by Username',
         fullname: 'Search by Full Name'
+      },
+      rules: {
+        username: val => {
+          const regex = /^(([A-Za-z0-9])+(([A-Za-z0-9-])+([A-Za-z0-9]))?)*$/
+          return regex.test(val) || 'Invalid username.'
+        },
+        fullname: () => {
+          return true
+        }
+      },
+      maxLength: {
+        username: 39,
+        fullname: 200
       }
     }
   },
