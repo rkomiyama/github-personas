@@ -21,11 +21,14 @@
     <v-spacer class="hidden-xs-only"></v-spacer>
     <v-text-field
       v-model="searchField"
+      type="input"
       :label="searchFieldLabels[searchUserOption]"
       @blur="userChange = false"
       @change="changeUser"
       prepend-icon="mdi-account-search"
       :maxlength="maxLength[searchUserOption]"
+      :rules="[rules[searchUserOption]]"
+      data-test="searchFieldTest"
       hide-details
     >
     </v-text-field>

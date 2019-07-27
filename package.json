@@ -6,12 +6,15 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit --coverage"
+    "test": "vue-cli-service test:unit --coverage --watch"
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "faker": "^4.1.0",
     "moment": "^2.24.0",
+    "moxios": "^0.4.0",
     "vue": "^2.6.10",
+    "vue-server-renderer": "^2.6.10",
     "vuetify": "^2.0.0"
   },
   "devDependencies": {

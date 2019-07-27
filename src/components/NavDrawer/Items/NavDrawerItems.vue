@@ -15,13 +15,6 @@ import ThemeListGroup from './ThemeListGroup'
 
 export default {
   name: 'NavDrawerItems',
-  methods: {
-    swapThemes (newTheme) {
-      this.$vuetify.theme[newTheme] = true
-      this.$vuetify.theme[this.currentTheme] = false
-      this.currentTheme = newTheme
-    }
-  },
   components: {
     SearchListGroup,
     ThemeListGroup
