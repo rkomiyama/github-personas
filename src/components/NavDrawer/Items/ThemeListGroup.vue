@@ -15,9 +15,9 @@
       mandatory
     >
       <v-list-item
-        v-for="(theme, i) in themes"
+        v-for="(theme, i) in filteredThemes"
         class="pl-10"
-        @click="swapThemes(theme)"
+        @click="clickListItem(theme)"
         link
         :key="i"
       >
@@ -27,7 +27,15 @@
           </v-icon>
         </v-list-item-action>
         <v-list-item-content>
-          <v-list-item-title>{{ theme.name }}</v-list-item-title>
+          <v-flex class="d-flex">
+            <v-list-item-title>{{ theme.name }}</v-list-item-title>
+            <v-switch
+              v-if="theme.name === 'Dark'"
+              v-model="darkTheme"
+              @click="clickListItem(theme)"
+              inset
+            ></v-switch>
+          </v-flex>
         </v-list-item-content>
       </v-list-item>
     </v-list-item-group>
@@ -42,18 +50,44 @@ export default {
   data () {
     return {
       themeOption: 0,
+      darkTheme: false,
+      themesSwapped: false,
       themes
     }
   },
   methods: {
-    swapThemes (newTheme) {
-      this.$vuetify.theme.light = newTheme.light
-      this.$vuetify.theme.dark = newTheme.dark
-      if (newTheme.light) {
-        this.$vuetify.theme.themes.light = newTheme.themes.light
-      } else if (newTheme.dark) {
-        this.$vuetify.theme.themes.dark = newTheme.themes.dark
+    swapColors (newTheme) {
+      this.$vuetify.theme.themes.light = newTheme.themes.light
+      this.$vuetify.theme.themes.dark = newTheme.themes.dark
+    },
+    clickListItem (theme) {
+      if (theme.name === "Dark") {
+        this.darkTheme = !this.darkTheme
+      } else {
+        this.swapColors(theme)
       }
+    }
+  },
+  watch: {
+    darkTheme (newVal) {
+      if (newVal) {
+        this.$vuetify.theme.light = false
+        this.$vuetify.theme.dark = true
+      } else {
+        this.$vuetify.theme.light = true
+        this.$vuetify.theme.dark = false
+      }
+    }
+  },
+  computed: {
+    filteredThemes () {
+      let themes = {}
+      Object.keys(this.themes).forEach((key, i) => {
+        if (i > 0) {
+          themes[key] = this.themes[key]
+        }
+      })
+      return themes
     }
   }
 }
