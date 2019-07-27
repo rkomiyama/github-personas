@@ -11,3 +11,9 @@
     </v-flex>
   </v-toolbar-title>
 </template>
+
+<script>
+export default {
+  name: 'NavDrawerTitle'
+}
+</script>
