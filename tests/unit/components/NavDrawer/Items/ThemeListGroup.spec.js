@@ -21,6 +21,10 @@ describe('ThemeListGroup.vue', () => {
     }
   })
 
+  afterEach(() => {
+    wrapper.destroy()
+  })
+
   it('is a Vue instance', () => {
     expect(wrapper.isVueInstance()).toBeTruthy();
   })
@@ -32,11 +36,13 @@ describe('ThemeListGroup.vue', () => {
 
   it('calls clickListItem', () => {
     wrapper.vm.clickListItem(themes.dark)
-    expect(wrapper.vm.$data.darkTheme).toBeTruthy()
+    expect(wrapper.vm.$data.darkOrLight).toEqual(['Dark'])
     wrapper.vm.clickListItem(themes.red)
     expect(wrapper.vm.$vuetify.theme.themes.dark).toEqual(themes.red.themes.dark)
     wrapper.vm.clickListItem(themes.dark)
-    expect(wrapper.vm.$data.darkTheme).toBeFalsy()
+    expect(wrapper.vm.$data.darkOrLight).toEqual(['Light'])
+    wrapper.vm.clickListItem(themes.light)
+    expect(wrapper.vm.$data.darkOrLight).toEqual(['Dark'])
   })
 
   it('ThemeListGroup renders the same HTML', () => {
