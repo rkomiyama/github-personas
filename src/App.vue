@@ -59,11 +59,9 @@ export default {
     }
   },
   watch: {
-    searchUserOption (newOption, oldOption) {
-      if (newOption !== oldOption) {
-        this.$refs.appBar.turnUserChangeOn()
-        this.$refs.appBar.clearSearchField()
-      }
+    searchUserOption () {
+      this.$refs.appBar.turnUserChangeOn()
+      this.$refs.appBar.clearSearchField()
     }
   },
   created () {
