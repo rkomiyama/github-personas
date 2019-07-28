@@ -9,13 +9,8 @@ exports[`AppBar.vue AppBar renders the same HTML 1`] = `
     </v-flex-stub>
   </v-toolbar-title-stub>
   <v-spacer-stub class="hidden-xs-only"></v-spacer-stub>
-  <v-text-field-stub errorCount="1" errorMessages="" messages="" rules="val =&gt; {
-            /* istanbul ignore next */cov_bn3qa1xeo.f[1]++;
-
-            const regex = /* istanbul ignore next */(cov_bn3qa1xeo.s[11]++, /^(([A-Za-z0-9])+(([A-Za-z0-9-])+([A-Za-z0-9]))?)*$/);
-            /* istanbul ignore next */cov_bn3qa1xeo.s[12]++;
-            return (/* istanbul ignore next */(cov_bn3qa1xeo.b[1][0]++, regex.test(val)) || /* istanbul ignore next */(cov_bn3qa1xeo.b[1][1]++, 'Invalid username.')
-            );
-          }" successMessages="" value="" backgroundColor="" hideDetails="true" label="Search by Username" prependIcon="mdi-account-search" loaderHeight="2" clearIcon="$vuetify.icons.clear" type="input" maxlength="39" data-test="searchFieldTest"></v-text-field-stub>
+  <v-text-field-stub errorCount="1" errorMessages="" messages="" rules="function () {
+        return fn.apply(this, arguments);
+      }" successMessages="" value="" backgroundColor="" hideDetails="true" label="Search by Username" prependIcon="mdi-account-search" loaderHeight="2" clearIcon="$vuetify.icons.clear" type="input" maxlength="39" data-test="searchFieldTest"></v-text-field-stub>
 </v-app-bar-stub>
 `;

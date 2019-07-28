@@ -17,6 +17,10 @@ describe('AppBar.vue', () => {
     })
   })
 
+  afterEach(() => {
+    wrapper.destroy()
+  })
+
   it('is a Vue instance', () => {
     expect(wrapper.isVueInstance()).toBeTruthy();
   })
@@ -59,6 +63,10 @@ describe('AppBar.vue', () => {
 
   it('AppBar renders the same HTML', () => {
     const renderer = createRenderer();
+    wrapper.vm.$data.rules = {
+      username: jest.fn(),
+      fullname: jest.fn()
+    }
     renderer.renderToString(wrapper.vm, (err, str) => {
     if (err) throw new Error(err);
       expect(str).toMatchSnapshot();

@@ -12,6 +12,10 @@ describe('NavDrawer.vue', () => {
     wrapper = shallowMount(NavDrawer)
   })
 
+  afterEach(() => {
+    wrapper.destroy()
+  })
+
   it('is a Vue instance', () => {
     const wrapper = shallowMount(NavDrawer)
     expect(wrapper.isVueInstance()).toBeTruthy();

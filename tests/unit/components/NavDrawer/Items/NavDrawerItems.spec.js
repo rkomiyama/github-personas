@@ -10,7 +10,11 @@ let wrapper
 describe('NavDrawerItems.vue', () => {
   beforeEach(() => {
     wrapper = shallowMount(NavDrawerItems)
-  }) 
+  })
+
+  afterEach(() => {
+    wrapper.destroy()
+  })
 
   it('is a Vue instance', () => {
     expect(wrapper.isVueInstance()).toBeTruthy();

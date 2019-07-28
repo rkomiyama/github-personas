@@ -12,6 +12,10 @@ describe('SearchListGroup.vue', () => {
     wrapper = shallowMount(SearchListGroup)
   })
 
+  afterEach(() => {
+    wrapper.destroy()
+  })
+
   it('is a Vue instance', () => {
     expect(wrapper.isVueInstance()).toBeTruthy();
   })

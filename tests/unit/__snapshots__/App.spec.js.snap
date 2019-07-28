@@ -2,8 +2,6 @@
 
 exports[`App.vue App renders the same HTML 1`] = `
 <v-app-stub id="app">
-  <NavDrawer-stub></NavDrawer-stub>
-  <AppBar-stub searchUserOption="username"></AppBar-stub>
-  <!---->
+  <MainSiteContainer-stub></MainSiteContainer-stub>
 </v-app-stub>
 `;

@@ -15,7 +15,7 @@
       mandatory
     >
       <v-list-item
-        v-for="(theme, i) in filteredThemes"
+        v-for="(theme, i) in themes"
         class="pl-10"
         @click="clickListItem(theme)"
         link
@@ -30,9 +30,19 @@
           <v-flex class="d-flex">
             <v-list-item-title>{{ theme.name }}</v-list-item-title>
             <v-switch
-              v-if="theme.name === 'Dark'"
-              v-model="darkTheme"
-              @click="clickListItem(theme)"
+              v-if="theme.name === 'Light'"
+              v-model.lazy="darkOrLight"
+              @change="clickSwitch('Light')"
+              value="Light"
+              @click.stop="clickListItem(theme)"
+              inset
+            ></v-switch>
+            <v-switch
+              v-else-if="theme.name === 'Dark'"
+              v-model.lazy="darkOrLight"
+              @change="clickSwitch('Dark')"
+              value="Dark"
+              @click.stop="clickListItem(theme)"
               inset
             ></v-switch>
           </v-flex>
@@ -50,6 +60,7 @@ export default {
   data () {
     return {
       themeOption: 0,
+      darkOrLight: ['Light'],
       darkTheme: false,
       themesSwapped: false,
       themes
@@ -60,34 +71,17 @@ export default {
       this.$vuetify.theme.themes.light = newTheme.themes.light
       this.$vuetify.theme.themes.dark = newTheme.themes.dark
     },
+    clickSwitch (themeName) {
+      const otherThemeName = themeName === "Dark" ? "Light" : "Dark"
+      this.darkOrLight = this.darkOrLight[0] === themeName ? [otherThemeName] : [themeName]
+      this.$vuetify.theme.light = this.darkOrLight[0] === "Light"
+      this.$vuetify.theme.dark = this.darkOrLight[0] === "Dark"
+    },
     clickListItem (theme) {
-      if (theme.name === "Dark") {
-        this.darkTheme = !this.darkTheme
-      } else {
-        this.swapColors(theme)
+      if (theme.name === "Light" || theme.name === "Dark") {
+        this.clickSwitch(theme.name)
       }
-    }
-  },
-  watch: {
-    darkTheme (newVal) {
-      if (newVal) {
-        this.$vuetify.theme.light = false
-        this.$vuetify.theme.dark = true
-      } else {
-        this.$vuetify.theme.light = true
-        this.$vuetify.theme.dark = false
-      }
-    }
-  },
-  computed: {
-    filteredThemes () {
-      let themes = {}
-      Object.keys(this.themes).forEach((key, i) => {
-        if (i > 0) {
-          themes[key] = this.themes[key]
-        }
-      })
-      return themes
+      this.swapColors(theme)
     }
   }
 }
